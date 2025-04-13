@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pomofocus Timer</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo">
+                <div class="logo-icon">
+                    <div class="logo-inner"></div>
+                </div>
+                <h1>Pomofocus</h1>
+            </div>
+            <div class="header-buttons">
+                <!-- User Icon/Button for switching users -->
+                <button class="icon-button" id="user-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                </button>
+                <!-- Stats Icon/Button for usage stats -->
+                <button class="icon-button" id="stats-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="20" x2="18" y2="10"></line>
+                        <line x1="12" y1="20" x2="12" y2="4"></line>
+                        <line x1="6" y1="20" x2="6" y2="14"></line>
+                    </svg>
+                </button>
+                <!-- Settings Icon/Button -->
+                <button class="icon-button" id="settings-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="3"></circle>
+                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83
+                     2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33
+                     1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2
+                     v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06
+                     a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0
+                     .33-1.82V9a1.65 1.65 0 0 0 1.51-1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09
+                     a1.65 1.65 0 0 0-1.51 1z"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Timer Container -->
+        <div class="timer-container">
+            <!-- Timer Type Tabs -->
+            <div class="timer-tabs">
+                <button class="tab-button active" data-type="Pomodoro">Pomodoro</button>
+                <button class="tab-button" data-type="Short Break">Short Break</button>
+                <button class="tab-button" data-type="Long Break">Long Break</button>
+            </div>
+            <!-- Timer Display -->
+            <div class="timer-display">
+                <div class="timer" id="timer">25:00</div>
+                <button class="start-button" id="start-button">START</button>
+            </div>
+        </div>
+
+        <!-- Tasks Section -->
+        <div class="tasks-section">
+            <div class="tasks-header">
+                <h2>Tasks</h2>
+            </div>
+            <!-- Tasks List -->
+            <div class="tasks-list" id="tasks-list">
+                <!-- Tasks will be added here dynamically -->
+            </div>
+            <!-- Add Task Button -->
+            <button class="add-task-button" id="add-task-button">
+                <span>+</span> Add Task
+            </button>
+            <!-- Add Task Form (hidden by default) -->
+            <div class="add-task-form" id="add-task-form" style="display: none;">
+                <input type="text" id="new-task-input" placeholder="What are you working on?">
+                <div class="form-buttons">
+                    <button class="cancel-button" id="cancel-button">Cancel</button>
+                    <button class="save-button" id="save-button">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Statistics Panel (hidden by default) -->
+    <div class="stats-panel" id="stats-panel">
+        <div class="stats-header">
+            <h2>Your Statistics</h2>
+            <button class="close-button" id="close-stats">&times;</button>
+        </div>
+        <div class="stats-content" id="stats-content">
+            <!-- Stats will be rendered here dynamically -->
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div class="modal" id="settings-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Timer Settings</h2>
+                <button class="close-button" id="close-settings">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="setting-item">
+                    <label>Pomodoro (minutes)</label>
+                    <input type="number" id="pomodoro-time" min="1" max="60" value="25">
+                </div>
+                <div class="setting-item">
+                    <label>Short Break (minutes)</label>
+                    <input type="number" id="short-break-time" min="1" max="30" value="5">
+                </div>
+                <div class="setting-item">
+                    <label>Long Break (minutes)</label>
+                    <input type="number" id="long-break-time" min="1" max="60" value="15">
+                </div>
+                <div class="setting-item">
+                    <label>Background</label>
+                    <select id="background-select">
+                        <!-- Dynamically populated -->
+                    </select>
+                </div>
+                <div class="setting-item">
+                    <label>Alarm Sound</label>
+                    <select id="audio-select">
+                        <!-- Dynamically populated -->
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="cancel-button" id="cancel-settings">Cancel</button>
+                <button class="save-button" id="save-settings">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Modal -->
+    <div class="modal" id="user-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Switch User</h2>
+                <button class="close-button" id="close-user">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="setting-item">
+                    <label>Current User</label>
+                    <select id="user-select">
+                        <!-- Users will be added dynamically -->
+                    </select>
+                </div>
+                <div class="setting-item">
+                    <label>Add New User</label>
+                    <div class="new-user-input">
+                        <input type="text" id="new-user-input" placeholder="Enter username">
+                        <button id="add-user-btn" class="save-button">Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Audio Element for Timer Completion -->
+    <audio id="alarm-audio"></audio>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
